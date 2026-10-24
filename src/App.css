@@ -1,0 +1,1303 @@
+:root {
+  --bg: #07090b;
+  --teal: #18cdba;
+  --pink: #f0b9cd;
+  --text: #f8eaf0;
+  --muted: #d0c4cc;
+  --line: #28584f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+}
+
+.birthday,
+.page-two,
+.page-three,
+.page-four,
+.page-five {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.page-transition {
+  animation: page-enter 0.7s ease both;
+}
+
+.ambient-glow {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 65%, #10332d55, transparent 50%),
+    radial-gradient(ellipse at 50% 20%, #28132944, transparent 55%);
+}
+
+.sparkles {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  color: #c8f9ee;
+  font-size: 10px;
+  opacity: 0;
+  animation: twinkle 3s ease-in-out infinite;
+  animation-delay: var(--twinkle-delay);
+}
+
+.intro {
+  position: relative;
+  z-index: 2;
+  width: min(90%, 700px);
+  margin: 0 auto;
+  padding: 35px 0 180px;
+  text-align: center;
+  animation: intro-appear 1.5s ease both;
+}
+
+.overline,
+.page-eyebrow {
+  margin-bottom: 22px;
+  color: #8edfd0;
+  font:
+    11px/1.7 Arial,
+    sans-serif;
+  letter-spacing: 4px;
+}
+
+.intro h1 {
+  margin: 0;
+  font-size: clamp(48px, 9vw, 88px);
+  font-weight: 400;
+  letter-spacing: -2px;
+}
+
+.title-heart {
+  color: var(--pink);
+}
+
+.subtitle {
+  margin: 22px 0 32px;
+  color: #c8b8c2;
+  font-size: clamp(15px, 2.5vw, 19px);
+  font-style: italic;
+  line-height: 1.8;
+}
+
+.open-button,
+.soft-button {
+  border: 1px solid #49b9a6a0;
+  border-radius: 50px;
+  padding: 14px 25px;
+  background: #0c1918;
+  color: var(--text);
+  font:
+    13px Arial,
+    sans-serif;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 0 22px #18cdba20;
+  transition:
+    background 0.3s,
+    box-shadow 0.3s,
+    transform 0.3s;
+}
+
+.open-button:hover,
+.soft-button:hover {
+  background: #12332f;
+  box-shadow: 0 0 30px #18cdba50;
+  transform: translateY(-2px);
+}
+
+/* Page 1: flowers */
+
+.flower-garden {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 270px;
+  pointer-events: none;
+}
+
+.garden-floor {
+  position: absolute;
+  right: 0;
+  bottom: -15px;
+  left: 0;
+  height: 55px;
+  background: radial-gradient(ellipse, #0b4a3c80, #07100e 70%);
+  filter: blur(8px);
+}
+
+.plant {
+  position: absolute;
+  bottom: 12px;
+  width: 2px;
+  transform-origin: bottom center;
+}
+
+.stem {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to top, #176b53, #32b99b);
+  box-shadow: 0 0 7px #18cdba55;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  animation: grow-stem 1.6s ease-out forwards;
+  animation-delay: var(--delay);
+}
+
+.leaf {
+  position: absolute;
+  width: 19px;
+  height: 9px;
+  background: linear-gradient(135deg, #176d53, #37c5a0);
+  border-radius: 100% 0 100% 0;
+  opacity: 0;
+  transform: scale(0);
+  animation: grow-leaf 0.8s ease-out forwards;
+}
+
+.leaf-one {
+  bottom: 34%;
+  left: 1px;
+  transform-origin: left center;
+  animation-delay: calc(var(--delay) + 0.8s);
+}
+
+.leaf-two {
+  right: 0;
+  bottom: 57%;
+  transform-origin: right center;
+  animation-delay: calc(var(--delay) + 1s);
+}
+
+.blossom {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: var(--flower-size);
+  height: var(--flower-size);
+  transform: translate(-50%, -50%) scale(0.05);
+  animation:
+    bloom 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+    flower-glow 3s ease-in-out 3s infinite;
+  animation-delay: calc(var(--delay) + 1.1s), calc(var(--delay) + 2.5s);
+}
+
+.petal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 43%;
+  height: 54%;
+  border-radius: 55% 55% 42% 42%;
+  background: linear-gradient(to top, #168d7c, #75e9d3);
+  box-shadow: 0 0 8px #18cdba55;
+  transform-origin: 50% 90%;
+  transform: translate(-50%, -90%) rotate(calc(var(--i) * 45deg));
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22%;
+  height: 22%;
+  border-radius: 50%;
+  background: #f4c9b6;
+  box-shadow: 0 0 12px #f4c9b688;
+  transform: translate(-50%, -50%);
+}
+
+/* Shared Page 2 layout */
+
+.page-two,
+.page-three,
+.page-four,
+.page-five {
+  padding: 55px 7%;
+}
+
+.birthday-glow {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 10%, #12352e55, transparent 55%);
+}
+
+.birthday-header,
+.age-section,
+.memories-section,
+.sms-card,
+.page-question,
+.birthday-footer {
+  position: relative;
+  z-index: 1;
+  max-width: 950px;
+  margin: 0 auto 65px;
+  text-align: center;
+}
+
+.birthday-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  padding: 25px 0;
+}
+
+.hero-photo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(280px, 100%);
+  height: 320px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 140px 140px 18px 18px;
+  background: #10201e;
+  color: var(--pink);
+}
+
+.hero-photo img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-photo .photo-placeholder {
+  font-size: 45px;
+}
+
+.hero-copy {
+  flex: 1 1 280px;
+  max-width: 520px;
+  text-align: left;
+}
+
+.hero-copy h1 {
+  margin: 15px 0;
+  font-size: clamp(38px, 6vw, 65px);
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.hero-copy h1 span {
+  color: var(--pink);
+}
+
+.hero-copy p:not(.page-eyebrow) {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.age-section h2,
+.memories-section h2,
+.sms-card h2,
+.page-question h2 {
+  font-size: clamp(23px, 4vw, 34px);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.age-counter {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #36bca8;
+  border-radius: 50%;
+  background: #102521;
+  color: #fff0f6;
+  font:
+    42px Georgia,
+    serif;
+  cursor: pointer;
+  box-shadow: 0 0 25px #18cdba35;
+  transition: transform 0.3s;
+}
+
+.age-counter:hover {
+  transform: scale(1.06);
+}
+
+.age-hint {
+  color: #d2b9c5;
+  font-style: italic;
+}
+
+.memory-grid,
+.wish-grid,
+.keepsake-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.memory-card,
+.keepsake-card,
+.wish-card {
+  padding: 15px;
+  border: 1px solid #24534c;
+  border-radius: 16px;
+  background: #0b1313dd;
+  text-align: center;
+}
+
+.memory-image {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #12201f;
+  color: var(--pink);
+}
+
+.memory-image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.memory-card p,
+.keepsake-card p {
+  color: #e6cbd6;
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.photo-placeholder {
+  font-size: 35px;
+}
+
+.sms-card {
+  max-width: 680px;
+  padding: 28px;
+  border: 1px solid #315c53;
+  border-radius: 18px;
+  background: #0c1514;
+}
+
+.sms-heart {
+  font-size: 30px;
+}
+
+.sms-card p {
+  color: #d6c8cf;
+  line-height: 1.9;
+}
+
+.answer-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.yes-button,
+.no-button {
+  padding: 13px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.yes-button {
+  border: 1px solid #4bcbb5;
+  background: #12352e;
+  color: white;
+  animation: yes-glow 2s infinite;
+}
+
+.no-button {
+  border: 1px solid #70515f;
+  background: #171014;
+  color: #f4dce6;
+}
+
+.yes-button:hover,
+.no-button:hover {
+  transform: translateY(-2px);
+}
+
+.no-message {
+  margin-top: 22px;
+  color: var(--pink) !important;
+  line-height: 1.8;
+}
+
+.birthday-footer {
+  margin-bottom: 0;
+  color: #7dcbbb;
+  font-style: italic;
+}
+
+/* Page 3: moonlight and keepsakes */
+
+.page-three {
+  background:
+    radial-gradient(ellipse at 50% 8%, #30305055, transparent 42%),
+    radial-gradient(ellipse at 10% 60%, #123a3740, transparent 45%), #07090f;
+}
+
+.section-heading {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.section-heading h1 {
+  margin: 15px 0;
+  color: #f4eaf6;
+  font-size: clamp(36px, 7vw, 65px);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.moon-card,
+.devotion-section,
+.future-message {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto 38px;
+  padding: 28px;
+  border: 1px solid #7770a24d;
+  border-radius: 20px;
+  background: #111322bd;
+  text-align: center;
+}
+
+.moon-art {
+  margin-bottom: 15px;
+  font-size: clamp(55px, 10vw, 85px);
+  filter: drop-shadow(0 0 22px #d4c9ff65);
+  animation: moon-glow 4s ease-in-out infinite;
+}
+
+.moon-card p,
+.devotion-section p,
+.future-message p {
+  color: #d8d1e0;
+  font-size: 16px;
+  line-height: 2;
+}
+
+.moon-card .moon-date {
+  color: #c7b5ff;
+  letter-spacing: 1px;
+}
+
+.devotion-section h2,
+.future-message h2 {
+  color: #e8d7ff;
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.keepsake-grid {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 auto 55px;
+}
+
+.keepsake-card {
+  padding: 25px 20px;
+  border-color: #69618e77;
+  background: #121322dd;
+}
+
+.keepsake-card h2 {
+  font-size: clamp(20px, 3vw, 27px);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.envelope-art {
+  margin-bottom: 10px;
+  font-size: 55px;
+  animation: float-soft 3s ease-in-out infinite;
+}
+
+.small-note {
+  color: #a9a0b9 !important;
+  font-size: 12px;
+}
+
+.soft-button {
+  margin-top: 8px;
+  border-color: #8072b5;
+  background: #211c32;
+}
+
+.image-modal {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 25px;
+  background: #000e;
+  cursor: zoom-out;
+}
+
+.image-modal img {
+  max-width: min(90vw, 750px);
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.image-modal p {
+  color: #e8d7ff;
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 38px;
+  cursor: pointer;
+}
+
+/* Page 4: future wishes */
+
+.page-four {
+  background:
+    radial-gradient(ellipse at 50% 15%, #103d374d, transparent 50%),
+    radial-gradient(ellipse at 85% 80%, #24345a30, transparent 40%), #07090b;
+}
+
+.future-message {
+  border-color: #2c7061;
+  background: #0d1716df;
+}
+
+.wish-grid {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 0 auto 45px;
+}
+
+.wish-card {
+  padding: 27px 18px;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.wish-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 28px #18cdba16;
+}
+
+.wish-card span {
+  font-size: 37px;
+}
+
+.wish-card h2 {
+  color: #e7c6d5;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.wish-card p {
+  color: #cfc5cd;
+  line-height: 1.8;
+}
+
+/* Page 5: final love reveal */
+
+.page-five {
+  background:
+    radial-gradient(ellipse at 50% 25%, #25132670, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, #0d40354d, transparent 45%), #07090b;
+}
+
+.final-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 760px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.final-content > h1 {
+  margin: 20px 0 30px;
+  color: #f5dce8;
+  font-size: clamp(40px, 8vw, 70px);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.couple-photo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(100%, 380px);
+  height: 360px;
+  margin: 0 auto 35px;
+  overflow: hidden;
+  border: 1px solid #4c8a7d;
+  border-radius: 20px;
+  background: #10201e;
+  color: var(--pink);
+  box-shadow: 0 0 35px #18cdba20;
+}
+
+.couple-photo img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.couple-photo .photo-placeholder {
+  font-size: 50px;
+}
+
+.final-letter {
+  padding: 25px;
+  border: 1px solid #65445688;
+  border-radius: 18px;
+  background: #120d13c9;
+}
+
+.final-letter p {
+  color: #e0d1d9;
+  line-height: 2;
+  font-size: 16px;
+}
+
+.signature {
+  color: #efbfd3;
+  font-style: italic;
+  line-height: 1.9;
+}
+
+.final-question {
+  margin-top: 55px;
+  padding: 28px 15px;
+}
+
+.final-question h2 {
+  font-size: clamp(25px, 5vw, 39px);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.final-question > p:not(.page-eyebrow) {
+  color: #e0d1d9;
+}
+
+.love-reveal {
+  margin-top: 50px;
+  padding: 30px 15px;
+  animation: intro-appear 1s ease both;
+}
+
+.floating-hearts {
+  font-size: clamp(24px, 6vw, 40px);
+  letter-spacing: 8px;
+  animation: float-soft 2s ease-in-out infinite;
+}
+
+.big-heart {
+  margin: 25px 0;
+  color: #ff7eae;
+  font-size: 85px;
+  text-shadow:
+    0 0 18px #ff4b944d,
+    0 0 45px #ff4b9460;
+  animation: heartbeat 1.3s ease-in-out infinite;
+}
+
+.love-reveal h2 {
+  color: #f6cadd;
+  font-size: clamp(23px, 4vw, 33px);
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.love-reveal p {
+  color: #f9e6ee;
+  font-size: 22px;
+  font-style: italic;
+}
+
+/* Animations */
+
+@keyframes grow-stem {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes grow-leaf {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bloom {
+  0% {
+    transform: translate(-50%, -50%) scale(0.05) rotate(-35deg);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.15) rotate(8deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0);
+  }
+}
+
+@keyframes flower-glow {
+  0%,
+  100% {
+    filter: brightness(0.9);
+  }
+  50% {
+    filter: brightness(1.4);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes intro-appear {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes yes-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 8px #18cdba20;
+  }
+  50% {
+    box-shadow: 0 0 22px #18cdba65;
+  }
+}
+
+@keyframes moon-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 12px #d4c9ff30);
+  }
+  50% {
+    filter: drop-shadow(0 0 28px #d4c9ff80);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.12);
+  }
+  30% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.08);
+  }
+}
+
+/* Responsive design */
+
+@media (max-width: 700px) {
+  .intro {
+    padding-bottom: 155px;
+  }
+
+  .overline,
+  .page-eyebrow {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+  }
+
+  .flower-garden {
+    height: 220px;
+  }
+
+  .page-two,
+  .page-three,
+  .page-four,
+  .page-five {
+    padding: 38px 5%;
+  }
+
+  .birthday-header {
+    flex-direction: column;
+  }
+
+  .hero-photo {
+    width: min(260px, 85%);
+    height: 280px;
+  }
+
+  .hero-copy {
+    text-align: center;
+  }
+
+  .memory-grid,
+  .wish-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .memory-image {
+    height: 290px;
+  }
+
+  .keepsake-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .moon-card,
+  .devotion-section,
+  .future-message,
+  .final-letter {
+    padding: 22px 17px;
+  }
+
+  .couple-photo {
+    height: 300px;
+  }
+
+  .answer-buttons {
+    gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ===== PAGE 1: CENTERED INTRO ===== */
+
+.birthday .intro {
+  position: relative;
+  z-index: 3;
+  min-height: 72vh;
+  padding: 0 20px 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.birthday .intro h1 {
+  font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-size: clamp(54px, 8vw, 82px);
+  font-style: italic;
+  letter-spacing: 1px;
+  text-shadow: 0 0 25px rgba(240, 185, 205, 0.2);
+  margin: 12px 0 18px;
+}
+
+.birthday .intro .subtitle {
+  margin: 0 0 28px;
+}
+
+.birthday .flower-garden {
+  z-index: 1;
+}
+
+/* ===== PAGE 2: INSET PHOTO FRAME ===== */
+
+.page-two .hero-photo,
+.page-two .memory-image {
+  overflow: hidden;
+  position: relative;
+  clip-path: polygon(
+    8% 0,
+    92% 0,
+    100% 8%,
+    100% 92%,
+    92% 100%,
+    8% 100%,
+    0 92%,
+    0 8%
+  );
+}
+
+.page-two .hero-photo img,
+.page-two .memory-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-two .page-question h2 {
+  position: relative;
+  left: 10px;
+}
+
+/* ===== PAGE 4: ANNIVERSARY ===== */
+
+.anniversary-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 55px 7% 70px;
+  color: var(--text, #f8eaf0);
+  background:
+    radial-gradient(
+      ellipse at 50% 10%,
+      rgba(24, 205, 186, 0.09),
+      transparent 55%
+    ),
+    var(--bg, #07090b);
+}
+
+.anniversary-page .section-heading {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto 35px;
+}
+
+.anniversary-page .section-heading h1 {
+  color: var(--pink, #f0b9cd);
+  letter-spacing: 2px;
+}
+
+.anniversary-page .anniversary-date {
+  color: var(--teal, #18cdba);
+  font-size: clamp(32px, 5vw, 48px);
+  margin: 16px 0;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.anniversary-page .section-heading h2 {
+  font-size: clamp(23px, 4vw, 34px);
+  margin-top: 10px;
+}
+
+.anniversary-message {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto 35px;
+  text-align: center;
+  line-height: 1.9;
+  color: var(--muted, #d0c4cc);
+  font-size: 17px;
+}
+
+.anniversary-message h2 {
+  color: var(--pink, #f0b9cd);
+  margin: 28px 0 12px;
+  font-size: 27px;
+}
+
+.banaras-gallery {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1050px;
+  margin: 35px auto 50px;
+}
+
+.banaras-card {
+  text-align: center;
+  min-width: 0;
+}
+
+.banaras-image {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 300px;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--line, #28584f);
+  border-radius: 90px 90px 12px 12px;
+  background: #101719;
+  box-shadow: 0 0 22px rgba(24, 205, 186, 0.08);
+}
+
+.banaras-image img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.banaras-image:hover img {
+  transform: scale(1.05);
+}
+
+.banaras-image .photo-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 35px;
+}
+
+.banaras-card > p {
+  margin: 14px 0 0;
+  color: var(--muted, #d0c4cc);
+  font-size: 14px;
+}
+
+.anniversary-promise {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto 45px;
+  padding: 32px clamp(20px, 5vw, 45px);
+  text-align: center;
+  border: 1px solid var(--line, #28584f);
+  border-radius: 18px;
+  background: rgba(24, 205, 186, 0.035);
+  box-shadow: 0 0 35px rgba(24, 205, 186, 0.04);
+}
+
+.promise-icon {
+  font-size: 30px;
+}
+
+.anniversary-promise h2 {
+  color: var(--pink, #f0b9cd);
+  margin: 12px 0 20px;
+}
+
+.anniversary-promise blockquote {
+  margin: 0;
+  color: var(--text, #f8eaf0);
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  line-height: 1.9;
+  font-size: 18px;
+}
+
+.anniversary-promise .signature {
+  margin-top: 22px;
+  color: var(--teal, #18cdba);
+  font-size: 17px;
+}
+
+.anniversary-page .page-question {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-top: 35px;
+}
+
+@media (max-width: 700px) {
+  .birthday .intro {
+    min-height: 68vh;
+    padding-bottom: 70px;
+  }
+
+  .page-two .page-question h2 {
+    left: 0;
+  }
+
+  .anniversary-page {
+    padding: 40px 18px 50px;
+  }
+
+  .banaras-gallery {
+    grid-template-columns: 1fr;
+    max-width: 390px;
+    gap: 28px;
+  }
+
+  .banaras-image {
+    height: 340px;
+  }
+
+  .anniversary-message {
+    font-size: 16px;
+  }
+
+  .anniversary-promise blockquote {
+    font-size: 16px;
+  }
+}
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap");
+
+.birthday .intro h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: clamp(66px, 9vw, 100px);
+  letter-spacing: 2px;
+  color: #f8eaf0;
+  text-shadow: 0 0 24px rgba(240, 185, 205, 0.16);
+}
+
+.birthday .intro h1 .title-heart {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+  color: #f0b9cd;
+}
+/* Page 2 - stylish cut-corner photo frame */
+.page-two .hero-photo {
+  overflow: hidden;
+  border-radius: 0;
+  clip-path: polygon(
+    7% 0,
+    93% 0,
+    100% 7%,
+    100% 93%,
+    93% 100%,
+    7% 100%,
+    0 93%,
+    0 7%
+  );
+  border: none;
+  box-shadow: 0 0 25px rgba(24, 205, 186, 0.12);
+}
+
+.page-two .hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Memory photos */
+.page-two .memory-image {
+  overflow: hidden;
+  border-radius: 0;
+  clip-path: polygon(
+    6% 0,
+    94% 0,
+    100% 6%,
+    100% 94%,
+    94% 100%,
+    6% 100%,
+    0 94%,
+    0 6%
+  );
+}
+
+.page-two .memory-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.anniversary-promise .promise-photo {
+  display: block;
+  width: min(100%, 320px);
+  height: 220px;
+  object-fit: cover;
+  margin: 0 auto 25px;
+  border: 1px solid var(--line, #28584f);
+  border-radius: 12px;
+  box-shadow: 0 0 22px rgba(24, 205, 186, 0.12);
+}
